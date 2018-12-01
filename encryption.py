@@ -1,14 +1,34 @@
 import re
 import json
 
+def encrypt(message):
+	#This converts the encoded word to an encrypted message
 
+	final_message = ""
+	with open('key.json') as f:
+		data = json.load(f)
 
+	message = str(message)
 
-def main():
-	message = input("Enter the message to be ecrypted : ")
+	if message[0].isdigit():
+		for i in range(0,len(message)-1,2):
+			final_message += data[message[i]+message[i+1]]
+		if len(message)%2!=0:
+			final_message += "M" + message[len(message)-1]
+	else:
+		final_message += "N" + message[0]
+		for i in range(1,len(message)-1,2):
+			final_message += data[message[i]+message[i+1]]
+		if (len(message)-2)%2!=0 :
+			final_message += "M" + message[len(message)-1]
+
+	return final_message
+
+def encode(message):
+	#This converts the intial word to an encoded message
+
 	middle_message = "" 
 	length = len(message)
-	binary_values = []
 	for i in range(length):
 		'''
 		ord : converts a chracter to integer
@@ -39,27 +59,14 @@ def main():
 					break
 			middle_message2 += chr(c + 96)
 
-	final_message = ""
+	return middle_message2
 
-	#everything thing below this converts coding into encryption
+def main():
+	message = input("Enter the message to be ecrypted : ")
 
-	with open('key.json') as f:
-		data = json.load(f)
+	message2 = encode(message)
+	final_message = encrypt(message2)
 
-	if middle_message2[0].isdigit():
-		for i in range(0,len(middle_message2)-1,2):
-			final_message += data[middle_message2[i]+middle_message2[i+1]]
-		if len(middle_message2)%2!=0:
-			final_message += "M" + middle_message2[len(middle_message2)-1]
-	else:
-		final_message += "N" + middle_message2[0]
-		for i in range(1,len(middle_message2)-1,2):
-			final_message += data[middle_message2[i]+middle_message2[i+1]]
-		if (len(middle_message2)-2)%2!=0 :
-			final_message += "M" + middle_message2[len(middle_message2)-1]
-
-	print(middle_message2)
 	print(final_message)
-
 
 main()
