@@ -46,6 +46,6 @@ def main():
 	message2 = decrypt(message)	
 	final_message = decode(message2)
 
-	print(final_message)	
+	print("This is the decrypted message : %s" %(final_message))	
 
 main()

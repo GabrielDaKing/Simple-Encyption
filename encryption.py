@@ -67,6 +67,6 @@ def main():
 	message2 = encode(message)
 	final_message = encrypt(message2)
 
-	print(final_message)
+	print("This is the encrypted message : %s" %(final_message))	
 
 main()
