@@ -1,7 +1,9 @@
 import re
 
-def main():
-	message = input("Enter the message to be ecrypted : ")
+
+def encrypt(message):
+	middle_message = ""
+	final_message = "" 
 	middle_message = "" 
 	length = len(message)
 	binary_values = []
@@ -28,13 +30,20 @@ def main():
 				if j >= length2 :
 					break
 			final_message += "%.0f"%(c)
-		else:
+		else:  
 			while middle_message[j] == "1" and j < length2:
 				c += 1
 				j += 1
 				if j >= length2 :
 					break
 			final_message += chr(c + 96)
+
+	return final_message
+
+def main():
+	message = input("Enter the message to be ecrypted : ")
+	
+	final_message = encrypt(message)
 	print(final_message)
 
 main()
